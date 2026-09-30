@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="th"><head><meta charset="utf-8"><title>TMS workflow overview</title>
+<style>
+body { font-family: Arial, sans-serif; margin: 28px auto; max-width: 1100px; color: #1c1c1c; line-height: 1.45; }
+a { color: #0b57d0; }
+table { border-collapse: collapse; width: 100%; margin: 12px 0 28px; }
+th, td { border: 1px solid #ddd; padding: 8px 10px; text-align: left; vertical-align: top; }
+th { background: #f4f4f4; }
+.pass { color: #0a7a32; font-weight: 700; }
+.warn { color: #8a5a00; font-weight: 700; }
+.note { background: #fff6e8; padding: 8px 12px; }
+</style></head><body>
+<p><a href="index.html">กลับสารบัญ</a></p>
+<h1>ภาพรวม TMS workflows</h1>
+<p>อัปเดต 30-09-2026 จากรอบทดสอบ localhost ของบริษัท ทาโก ทรานสปอร์ต (573426) คนขับกิต โชคดี</p>
+<p>ผลรวมของหัวข้อใน Flow_TMS: <span class="pass">ครบและผ่าน</span> งานตู้แห้งใบ TMS29154809 เดินตั้งแต่สร้าง order จนออก invoice และเปิด Aging Report ได้ งานตู้เย็นใบ RF30092601 เป็นหัวข้อเพิ่มนอกแผน และเดินจนคนขับถ่ายอุณหภูมิแล้ว backoffice ติดตามค่าได้</p>
+
+<h2>วงที่ทดสอบ</h2>
+<table>
+<thead><tr><th>หัวข้อ</th><th>ผล</th><th>สิ่งที่ทำจริง</th><th>หลักฐาน</th></tr></thead>
+<tbody>
+<tr>
+<td>01 เข้าสู่ระบบ</td>
+<td><span class="pass">ผ่าน</span></td>
+<td>เข้า backoffice ได้ และไปหน้าแรกหลังกดภายหลังที่ dialog รหัสผ่าน</td>
+<td><a href="01-system-overview.html">01</a></td>
+</tr>
+<tr>
+<td>02 Master data</td>
+<td><span class="pass">ผ่าน</span></td>
+<td>รถ คนขับ ลูกค้า ผู้ใช้ บริษัท Cost Fuel Rate Route ราคาเส้นทาง checklist และ notification เปิดได้ Cost ถูกผูกในฟอร์ม Route</td>
+<td><a href="02-master-data.html">02</a></td>
+</tr>
+<tr>
+<td>03 สร้างงานและมอบหมายคนขับ</td>
+<td><span class="pass">ผ่าน</span></td>
+<td>สร้าง TMS29154809 ตู้ 20GP เส้นทาง LCP - TICS ลูกค้า SCGJWD แล้วมอบให้กิต โชคดี</td>
+<td><a href="03-job-order-assign-driver.html">03</a></td>
+</tr>
+<tr>
+<td>04 ค่าใช้จ่ายและน้ำมัน</td>
+<td><span class="pass">ผ่าน</span></td>
+<td>บันทึก Expense &amp; Fuel ของใบนี้ได้ และหน้าพิมพ์แสดงเลขงาน</td>
+<td><a href="04-expense-fuel.html">04</a></td>
+</tr>
+<tr>
+<td>05 แอปคนขับ รับตู้–ส่งตู้</td>
+<td><span class="pass">ผ่าน</span></td>
+<td>ค้นเจอทั้งรับตู้และส่งตู้ รับตู้ CSQU3054383 แล้วส่งตู้จบ ช่องค้นหายังใช้ได้หลังกลับหน้างานของฉัน</td>
+<td><a href="05-mobile-driver.html">05</a></td>
+</tr>
+<tr>
+<td>06 Job Monitoring / Tracking</td>
+<td><span class="pass">ผ่าน</span></td>
+<td>ค้น TMS29154809 ใน Job Monitoring ได้ และหน้า Job Tracking เปิดได้</td>
+<td><a href="06-job-monitoring-tracking.html">06</a></td>
+</tr>
+<tr>
+<td>07 ปิดงาน Invoice Aging และแก้ข้อมูล</td>
+<td><span class="pass">ผ่าน</span></td>
+<td>ปิดงาน TMS29154809 แล้ว ออก INV5734262609290101 ยอด 1,712.00 ออกใบเสร็จเงินสด REC5734262609300001 แล้วสถานะเป็นชำระเงินแล้ว Aging ของ SCGJWD ช่วง 1–30 วันเป็นยอดนี้ก่อนรับชำระ แก้รับตู้ ส่งตู้ และคนขับทดสอบบนใบ RF28133624 ที่ยังไม่ปิด</td>
+<td><a href="07-complete-job-invoice.html">07</a></td>
+</tr>
+<tr>
+<td>08 รายงานและแดชบอร์ด</td>
+<td><span class="pass">ผ่าน</span></td>
+<td>รายงานปฏิบัติการ รายงานบริหาร รายงานตู้ตามลูกค้า incentive รายวัน และแดชบอร์ด Transport กับ Operation เปิดได้</td>
+<td><a href="08-reports-dashboards.html">08</a></td>
+</tr>
+<tr>
+<td>10 Reefer Monitor นอกแผน</td>
+<td><span class="pass">ผ่าน</span></td>
+<td>สร้าง RF30092601 ตู้ 20RF จุดตั้ง 13°C มอบให้กิต ถ่าย SUPPLY 12.7°C และ RETURN 15.6°C ของตู้ TCLU3009268 จนปิดงานส่งตู้ แล้วเห็นค่าเดียวกันบน Job Monitoring</td>
+<td><a href="10-reefer-monitor.html">10</a></td>
+</tr>
+</tbody>
+</table>
+
+<h2>จุดที่ยังไม่ใช่ flow ที่พัง</h2>
+<table>
+<thead><tr><th>เรื่อง</th><th>สถานะ</th><th>ต้องแก้โค้ดไหม</th></tr></thead>
+<tbody>
+<tr>
+<td>Dialog รหัสผ่านครบกำหนดหลังเข้าสู่ระบบ</td>
+<td><span class="warn">ข้อสังเกตวันเทรน</span></td>
+<td>ยังไม่ต้องแก้ บัญชีเทรนนิ่งกดภายหลังแล้วเข้าได้ ถ้าไม่อยากให้สะดุดตอนสาธิต ค่อยตัดสินใจปิด dialog ของบัญชีนี้</td>
+</tr>
+<tr>
+<td>แอปคนขับบน Chrome</td>
+<td>นอก Flow_TMS</td>
+<td>ไม่ต้องแก้เพื่อวันเทรน โค้ดยังอ่าน Platform.environment ตอนสตาร์ทบนเว็บไม่ได้ รอบนี้ใช้ Android emulator</td>
+</tr>
+<tr>
+<td>หน้าตั้งค่าค่าใช้จ่าย /master-setting/expenses</td>
+<td>นอก TMS</td>
+<td>ไม่ต้องเปิดให้บริษัทขนส่ง เป็นข้อมูลลานตู้ ต้นทุน TMS ใช้ Cost, Fuel Rate และ Route Price ซึ่งทดสอบแล้ว</td>
+</tr>
+</tbody>
+</table>
+
+<h2>ของที่ตั้งใจไม่แตะซ้ำ</h2>
+<ul>
+<li>TMS29154809 ปิดงานและออก invoice แล้ว อย่ากด Complete หรือออก invoice ซ้ำ</li>
+<li>RF28133624 หลังทดสอบแก้คนขับ ค้างที่บุญนำ พัฒนา สถานะ Waiting Complete</li>
+<li>งาน Yard ไม่อยู่ในวาระ TMS วันที่ 2026-10-05</li>
+</ul>
+<p class="note">รายการเช็กระดับช่องติ๊กอยู่ที่ <a href="tms-workflow-issues.md">tms-workflow-issues.md</a></p>
+</body></html>

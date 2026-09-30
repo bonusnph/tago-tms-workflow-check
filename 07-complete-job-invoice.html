@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="th"><head><meta charset="utf-8"><title>Complete Job / Invoice / Receipt</title>
+<style>
+body { font-family: Arial, sans-serif; margin: 28px auto; max-width: 1100px; color: #1c1c1c; line-height: 1.45; }
+img { width: 100%; border: 1px solid #ddd; }
+.url { color: #555; font-size: 13px; word-break: break-all; }
+.note { background: #fff6e8; padding: 8px 12px; }
+.pass { color: #0a7a32; } .fail { color: #b00020; } .blocked, .warn { color: #8a5a00; }
+a { color: #0b57d0; }
+</style></head><body>
+<p><a href="index.html">กลับสารบัญ</a></p>
+<h1>07 Complete Job / Invoice / Receipt</h1>
+<p>13:40–13:45 ปิดงานและ invoice</p>
+<p>ผลรวม: <span class="pass">ผ่าน</span></p>
+<section><h2>1. Complete Job <span class="pass">ผ่าน</span></h2><p class="url">http://localhost:4200/complete-job</p><figure><img src="screenshots/07-01-complete.png" alt="Complete Job"><figcaption>ภาพที่ 1</figcaption></figure></section>
+<section><h2>2. ปิดงาน TMS29154809 <span class="pass">ผ่าน</span></h2><p class="url">http://localhost:4200/complete-job</p><p class="note">สถานะ Completed 29/09/2026 20:48 คนขับกิต โชคดี</p><figure><img src="screenshots/07-17-complete-done.png" alt="ปิดงาน TMS29154809"><figcaption>ภาพที่ 2</figcaption></figure></section>
+<section><h2>3. Invoice <span class="pass">ผ่าน</span></h2><p class="url">http://localhost:4200/invoice-transport</p><figure><img src="screenshots/07-03-invoice.png" alt="Invoice"><figcaption>ภาพที่ 3</figcaption></figure></section>
+<section><h2>4. ออก invoice ของ TMS29154809 <span class="pass">ผ่าน</span></h2><p class="url">http://localhost:4200/invoice-transport</p><p class="note">INV5734262609290101 ลูกค้า SCGJWD LOGISTICS ยอด 1,712.00</p><figure><img src="screenshots/07-21-invoice-created.png" alt="ออก invoice"><figcaption>ภาพที่ 4</figcaption></figure></section>
+<section><h2>5. Receipt <span class="pass">ผ่าน</span></h2><p class="url">http://localhost:4200/receipt-issue</p><figure><img src="screenshots/07-05-receipt.png" alt="Receipt"><figcaption>ภาพที่ 5</figcaption></figure></section>
+<section><h2>5.1 ออกใบเสร็จจาก INV5734262609290101 <span class="pass">ผ่าน</span></h2><p class="url">http://localhost:4200/receipt-issue</p><p class="note">ค้นใบแจ้งหนี้แล้วสถานะรอชำระเงิน ออกใบเสร็จแบบเงินสด วันที่รับเงิน 30-09-2026 เข้าบัญชี 012-3-45678-9 ได้เลข REC5734262609300001 ยอด 1,712.00 กลับมาที่รายการสถานะเป็นชำระเงินแล้ว</p><figure><img src="screenshots/07-24-receipt-search.png" alt="ใบแจ้งหนี้รอชำระ"><figcaption>ภาพที่ 5.1 รอชำระเงิน</figcaption></figure><figure><img src="screenshots/07-25-receipt-form.png" alt="ฟอร์มออกใบเสร็จเงินสด"><figcaption>ภาพที่ 5.2 กรอกเงินสด</figcaption></figure><figure><img src="screenshots/07-26-receipt-preview.png" alt="ใบเสร็จ REC5734262609300001"><figcaption>ภาพที่ 5.3 ใบเสร็จที่ออกแล้ว</figcaption></figure><figure><img src="screenshots/07-27-receipt-paid.png" alt="สถานะชำระเงินแล้ว"><figcaption>ภาพที่ 5.4 ชำระเงินแล้ว</figcaption></figure></section>
+<section><h2>6. Aging Report <span class="pass">ผ่าน</span></h2><p class="url">http://localhost:4200/aging-report</p><p class="note">ค้น SCGJWD LOGISTICS แล้วยอดช่วง 1–30 วันเป็น 1,712.00 รายการใบแจ้งหนี้มี INV5734262609290101</p><figure><img src="screenshots/07-22-aging-search.png" alt="Aging Report"><figcaption>ภาพที่ 6</figcaption></figure><figure><img src="screenshots/07-23-aging-invoices.png" alt="Aging Report Invoices"><figcaption>ภาพที่ 6.1</figcaption></figure></section>
+<section><h2>7. Revenue Report <span class="pass">ผ่าน</span></h2><p class="url">http://localhost:4200/revenue</p><figure><img src="screenshots/07-07-revenue.png" alt="Revenue Report"><figcaption>ภาพที่ 7</figcaption></figure></section>
+<section><h2>8. Edit รับตู้ <span class="pass">ผ่าน</span></h2><p class="url">http://localhost:4200/complete-job</p><p class="note">งาน RF28133624 ที่ยังไม่ปิด มีปุ่ม Edit ข้าง Complete บันทึกเลขตู้ TGHU0000013 ซีล SEAL-RF33624 ไมล์ 100–120 แล้วเปิดกลับมาค่ายังอยู่</p><figure><img src="screenshots/09-05-pickup-saved.png" alt="ปุ่ม Edit"><figcaption>ภาพที่ 8</figcaption></figure><figure><img src="screenshots/09-06-pickup-reopen.png" alt="ข้อมูลรับตู้ที่บันทึกแล้ว"><figcaption>ภาพที่ 8.1</figcaption></figure></section>
+<section><h2>9. Edit ส่งตู้ <span class="pass">ผ่าน</span></h2><p class="url">http://localhost:4200/complete-job</p><p class="note">ก่อนบันทึกรับตู้ แท็บส่งตู้ขึ้นว่าต้องกรอกข้อมูลก่อนหน้า หลังบันทึกรับตู้แล้วแก้ไมล์ส่งตู้เป็น 120–150 ได้</p><figure><img src="screenshots/09-03-edit-dropoff.png" alt="ส่งตู้ยังแก้ไม่ได้"><figcaption>ภาพที่ 9</figcaption></figure><figure><img src="screenshots/09-08-dropoff-filled.png" alt="แก้ไมล์ส่งตู้"><figcaption>ภาพที่ 9.1</figcaption></figure></section>
+<section><h2>10. Edit คนขับ <span class="pass">ผ่าน</span></h2><p class="url">http://localhost:4200/complete-job</p><p class="note">เปลี่ยนจากกิต โชคดี เป็นบุญนำ พัฒนา รถ 789-7841 บุรีรัมย์ สถานะงานเป็น Waiting Complete และมีประวัติการแก้ไข</p><figure><img src="screenshots/09-10-driver-selected.png" alt="เลือกคนขับใหม่"><figcaption>ภาพที่ 10</figcaption></figure><figure><img src="screenshots/09-12-driver-after.png" alt="คนขับหลังบันทึก"><figcaption>ภาพที่ 10.1</figcaption></figure><figure><img src="screenshots/09-13-edit-result.png" alt="รายการหลังเปลี่ยนคนขับ"><figcaption>ภาพที่ 10.2</figcaption></figure></section>
+</body></html>

@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="th"><head><meta charset="utf-8"><title>Reefer Monitor</title>
+<style>
+body { font-family: Arial, sans-serif; margin: 28px auto; max-width: 1100px; color: #1c1c1c; line-height: 1.45; }
+img { width: 100%; border: 1px solid #ddd; }
+.url { color: #555; font-size: 13px; word-break: break-all; }
+.note { background: #fff6e8; padding: 8px 12px; }
+.pass { color: #0a7a32; } .fail { color: #b00020; } .blocked, .warn { color: #8a5a00; }
+a { color: #0b57d0; }
+</style></head><body>
+<p><a href="index.html">กลับสารบัญ</a></p>
+<h1>10 Reefer Monitor</h1>
+<p>อยู่นอก Flow_TMS ทดสอบจากสร้าง order ตู้ reefer บน backoffice คนขับถ่ายอุณหภูมิและปิดงานส่งตู้บนแอป แล้วกลับมาดูอุณหภูมิที่เมนู Job Monitoring</p>
+<p>ใบงาน RF30092601 งาน TAGO00816020RFF001 ตู้ TCLU3009268 ชนิด 20RF จุดตั้ง 13°C ช่วง Supply 12–14°C ช่วง Return 12–17°C คนขับกิต โชคดี</p>
+<p>ผลรวม: <span class="pass">ผ่าน</span></p>
+
+<section>
+<h2>1. สร้าง Order ตู้ reefer <span class="pass">ผ่าน</span></h2>
+<p class="url">http://localhost:4200/order/create</p>
+<p class="note">ลูกค้า SCGJWD LOGISTICS เส้นทาง LCP - TICS ตู้ 20RF FULL อุณหภูมิ 13°C ช่วง Supply 12–14 ช่วง Return 12–17 อ่านทุก 2 ชั่วโมง รับตู้ 30-09-2026 09:00 ส่งตู้ 16:00 บันทึกแล้วได้ใบ RF30092601</p>
+<figure><img src="screenshots/10-02-order-reefer.png" alt="ฟอร์มสร้าง order ตู้ reefer"><figcaption>ภาพที่ 1 ฟอร์มก่อนบันทึก</figcaption></figure>
+<figure><img src="screenshots/10-03-order-save.png" alt="บันทึก order สำเร็จ"><figcaption>ภาพที่ 1.1 บันทึกสำเร็จ</figcaption></figure>
+</section>
+
+<section>
+<h2>2. ราคาเส้นทางลูกค้าสำหรับตู้ RF <span class="pass">ผ่าน</span></h2>
+<p class="url">http://localhost:4200/master-setting/customer-route-price</p>
+<p class="note">มอบหมายคนขับครั้งแรกไม่ผ่าน เพราะยังไม่มีราคาเรียกเก็บของ SCGJWD สำหรับ LCP - TICS ตู้ 20 RF FULL จึงเพิ่มราคา 1,500.00 แล้วมอบหมายได้</p>
+<figure><img src="screenshots/10-03d-route-price-saved.png" alt="ราคาเส้นทาง 20 RF"><figcaption>ภาพที่ 2 ราคา 20 RF FULL</figcaption></figure>
+</section>
+
+<section>
+<h2>3. มอบหมายคนขับ <span class="pass">ผ่าน</span></h2>
+<p class="url">http://localhost:4200/assign-driver</p>
+<p class="note">มอบหมายใบ RF30092601 ให้กิต โชคดี รถ 75-1338 ชลบุรี สถานะในรายการเป็น assigned แล้ว</p>
+<figure><img src="screenshots/10-04-assign-list.png" alt="รายการรอ assign"><figcaption>ภาพที่ 3 ก่อนเลือกคนขับ</figcaption></figure>
+<figure><img src="screenshots/10-06-driver-picked.png" alt="เลือกกิต โชคดี"><figcaption>ภาพที่ 3.1 เลือกกิต โชคดี</figcaption></figure>
+<figure><img src="screenshots/10-08-assigned.png" alt="มอบหมายแล้ว"><figcaption>ภาพที่ 3.2 มอบหมายแล้ว</figcaption></figure>
+</section>
+
+<section>
+<h2>4. ค่าใช้จ่ายและน้ำมัน เพื่อเปิดงานบนแอป <span class="pass">ผ่าน</span></h2>
+<p class="url">http://localhost:4200/advance-fuel/preview/86870</p>
+<p class="note">บันทึกค่าใช้จ่ายจริง 100 และน้ำมัน PETROL แล้วระบบสร้างงานรับตู้และส่งตู้ให้คนขับ ใบพิมพ์แสดง booking RF30092601 ตู้ 20RF คนขับกิต รถ 75-1338</p>
+<figure><img src="screenshots/10-10-expense-dialog.png" alt="บันทึกค่าใช้จ่ายและน้ำมัน"><figcaption>ภาพที่ 4 กรอกค่าใช้จ่าย</figcaption></figure>
+<figure><img src="screenshots/10-11-expense-saved.png" alt="ใบพิมพ์ค่าใช้จ่าย"><figcaption>ภาพที่ 4.1 ใบพิมพ์</figcaption></figure>
+</section>
+
+<section>
+<h2>5. แอปคนขับ รับตู้และบันทึกเลขตู้ <span class="pass">ผ่าน</span></h2>
+<p class="url">Android emulator</p>
+<p class="note">ค้น RF30092601 แล้วเริ่มรับตู้ เลขไมล์ 100 เช็คอิน แล้วกรอกเลขตู้ TCLU3009268 รหัส ISO 22R1 พร้อมรูปตู้ การ์ดอุณหภูมิยังไม่ขึ้นบนฟอร์มรับตู้ เพราะเลขตู้ยังไม่ถูกบันทึก หลังบันทึกรับตู้ เลขไมล์ปลายทาง 120 งานรับตู้หายจากรายการที่ต้องทำ</p>
+<figure><img src="screenshots/10-12-mobile-search.png" alt="ค้นงานรับตู้และส่งตู้"><figcaption>ภาพที่ 5 งานรับตู้และส่งตู้</figcaption></figure>
+<figure><img src="screenshots/10-14-mobile-checkin.png" alt="เช็คอินรับตู้"><figcaption>ภาพที่ 5.1 เช็คอินรับตู้</figcaption></figure>
+<figure><img src="screenshots/10-15-mobile-container.png" alt="กรอกเลขตู้ TCLU3009268"><figcaption>ภาพที่ 5.2 เลขตู้ TCLU3009268</figcaption></figure>
+</section>
+
+<section>
+<h2>6. ส่งตู้ ถ่ายอุณหภูมิเมื่อมีเลขตู้แล้ว <span class="pass">ผ่าน</span></h2>
+<p class="url">Android emulator</p>
+<p class="note">งานส่งตู้ขึ้นว่ามีปุ่มถ่ายรูป หลังเช็คอิน ฟอร์มแสดงเลขตู้ TCLU3009268 และการ์ดบันทึกอุณหภูมิรีเฟอร์ ถ่ายภาพ SUPPLY 12.7°C และ RETURN 15.6°C จุดตั้ง 13.0°C ทั้งสองภาพ แล้วบันทึกอุณหภูมิสำเร็จ</p>
+<figure><img src="screenshots/10-16-mobile-drop-list.png" alt="งานส่งตู้รอเริ่ม"><figcaption>ภาพที่ 6 งานส่งตู้</figcaption></figure>
+<figure><img src="screenshots/10-17-mobile-drop-detail.png" alt="รายละเอียดส่งตู้ มีปุ่มถ่ายรูป"><figcaption>ภาพที่ 6.1 ปุ่มถ่ายรูปบนงานส่งตู้</figcaption></figure>
+<figure><img src="screenshots/10-20-mobile-drop-reefer-card.png" alt="การ์ดอุณหภูมิพร้อมเลขตู้"><figcaption>ภาพที่ 6.2 การ์ดอุณหภูมิและเลขตู้</figcaption></figure>
+<figure><img src="screenshots/10-22-mobile-reefer-supply.png" alt="อ่านภาพ SUPPLY"><figcaption>ภาพที่ 6.3 อ่านค่า SUPPLY 12.7 จุดตั้ง 13.0</figcaption></figure>
+<figure><img src="screenshots/10-23-mobile-reefer-ready.png" alt="ครบสองภาพก่อนส่ง"><figcaption>ภาพที่ 6.4 ครบ 2 ภาพ อุณหภูมิ 12.7 จุดตั้ง 13.0</figcaption></figure>
+<figure><img src="screenshots/10-24-mobile-reefer-saved.png" alt="บันทึกอุณหภูมิสำเร็จ"><figcaption>ภาพที่ 6.5 บันทึกอุณหภูมิสำเร็จ</figcaption></figure>
+</section>
+
+<section>
+<h2>7. ปิดงานส่งตู้บนแอป <span class="pass">ผ่าน</span></h2>
+<p class="url">Android emulator</p>
+<p class="note">กลับมาที่ฟอร์มส่งตู้ การ์ดอุณหภูมิเป็นสีเขียวและมีเลขตู้ TCLU3009268 แนบรูปตู้ 1 รูป เลขไมล์ปลายทาง 150 แล้วระบบแจ้งส่งตู้เรียบร้อย งานที่ต้องทำค้น RF30092601 ไม่พบรายการ ประวัติแสดงส่งตู้สำเร็จ 30-09-2026 03:42</p>
+<figure><img src="screenshots/10-25-mobile-drop-form-reefer-done.png" alt="ฟอร์มส่งตู้หลังบันทึกอุณหภูมิ"><figcaption>ภาพที่ 7 อุณหภูมิบันทึกแล้ว</figcaption></figure>
+<figure><img src="screenshots/10-28-mobile-drop-complete.png" alt="ส่งตู้เรียบร้อย"><figcaption>ภาพที่ 7.1 ส่งตู้เรียบร้อย</figcaption></figure>
+<figure><img src="screenshots/10-29-mobile-todo-empty.png" alt="งานที่ต้องทำไม่พบใบนี้"><figcaption>ภาพที่ 7.2 ไม่เหลือในงานที่ต้องทำ</figcaption></figure>
+<figure><img src="screenshots/10-30-mobile-history-done.png" alt="ประวัติส่งตู้สำเร็จ"><figcaption>ภาพที่ 7.3 ประวัติส่งตู้สำเร็จ</figcaption></figure>
+</section>
+
+<section>
+<h2>8. Backoffice ติดตามอุณหภูมิ <span class="pass">ผ่าน</span></h2>
+<p class="url">http://localhost:4200/job-monitoring</p>
+<p class="note">ผู้ใช้ super_admin ของบริษัทนี้เห็นเมนู Job Monitoring อยู่แล้ว ไม่ต้องเพิ่มสิทธิ์ เลือกประเภทงาน เฉพาะงาน Reefer แล้วค้น RF30092601 รายการงานแสดงตู้ TCLU3009268 ขนาด 20RF ค่า Supply 12.7°C และ Return 15.6°C กดที่ค่าอุณหภูมิแล้วเปิดหน้าเส้นทางตู้เย็น เห็นจุดตั้ง 13°C กราฟ Supply และ Return รูปหน้าจอที่คนขับถ่าย และไทม์ไลน์บันทึกอุณหภูมิ 30 Sep 03:39</p>
+<figure><img src="screenshots/10-32-bo-reefer-list.png" alt="Job Monitoring กรองงาน Reefer"><figcaption>ภาพที่ 8 รายการแสดง Supply 12.7 และ Return 15.6</figcaption></figure>
+<figure><img src="screenshots/10-33-bo-reefer-journey.png" alt="สรุปอุณหภูมิในเส้นทางตู้เย็น"><figcaption>ภาพที่ 8.1 สรุปอุณหภูมิ จุดตั้ง และแผนที่</figcaption></figure>
+<figure><img src="screenshots/10-34-bo-reefer-timeline.png" alt="กราฟ รูปอุณหภูมิ และไทม์ไลน์"><figcaption>ภาพที่ 8.2 กราฟ รูปที่ถ่าย และบันทึกอุณหภูมิ</figcaption></figure>
+</section>
+</body></html>
